@@ -30,5 +30,6 @@ systemctl stop snapcontrol.service
 
 - [ ] Add configuration file with snapcast host/port
 - [ ] Add priority to the streams
+- [ ] Add auto switch blacklist
 
 [1]: https://github.com/badaix/snapcast
