@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 install_dir=$(dirname "$0")
 
 sudo cp -f "$install_dir"/snapcontrol.service /etc/systemd/system/
