@@ -28,7 +28,7 @@ systemctl stop snapcontrol.service
 
 ## TODO
 
-- [ ] Add configuration file with snapcast host/port
+- [X] Add configuration file with snapcast host/port
 - [ ] Add priority to the streams
 - [ ] Add auto switch blacklist
 
