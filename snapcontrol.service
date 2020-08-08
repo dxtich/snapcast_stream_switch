@@ -1,0 +1,12 @@
+[Unit]
+Description=Snapcast stream auto switch
+Wants=snapcast.service
+
+[Service]
+ExecStart=/usr/local/bin/snapcontrol
+User=snapserver
+Group=snapserver
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
