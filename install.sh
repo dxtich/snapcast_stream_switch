@@ -1,6 +1,10 @@
 #!/bin/sh
 install_dir=$(dirname "$0")
 
+sudo cp -n "$install_dir"/snapcontrol.conf /etc/snapcontrol.conf
+sudo chown root:root /etc/snapcontrol.conf
+sudo chmod 644 /etc/snapcontrol.conf
+
 sudo cp -f "$install_dir"/snapcontrol.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/snapcontrol.service
 sudo chmod 644 /etc/systemd/system/snapcontrol.service
