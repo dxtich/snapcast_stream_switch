@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 install_dir=$(dirname "$0")
 
-systemctl stop snapcontrol.service
-systemctl disable snapcontrol.service
-systemctl daemon-reload
+sudo systemctl stop snapcontrol.service
+sudo systemctl disable snapcontrol.service
+sudo systemctl daemon-reload
 
-rm -f /etc/systemd/system/snapcontrol.service
-rm -f /usr/local/bin/snapcontrol
+sudo rm -f /etc/systemd/system/snapcontrol.service
+sudo rm -f /usr/local/lib/snapcontrol.py
