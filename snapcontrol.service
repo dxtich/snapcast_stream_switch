@@ -3,7 +3,7 @@ Description=Snapcast stream auto switch
 Wants=snapcast.service
 
 [Service]
-ExecStart=/usr/local/bin/snapcontrol
+ExecStart=python3 /usr/local/lib/snapcontrol.py
 User=snapserver
 Group=snapserver
 Restart=on-failure
