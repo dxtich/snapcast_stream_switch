@@ -8,11 +8,12 @@ from time import sleep, time
 log = logging.getLogger(__name__)
 host = '127.0.0.1'
 port = 1705
-
+streams_priority = dict()
 
 def initial_config():
     global host
     global port
+    global streams_priority
     config = configparser.ConfigParser()
     config.read('/etc/snapcontrol.conf')
     if 'snapcast' in config:
@@ -20,6 +21,10 @@ def initial_config():
             host = config['snapcast']['host']
         if 'port' in config:
             port = config['snapcast']['port']
+    if 'streams_priority' in config:
+        for k, v in config['streams_priority'].items():
+            streams_priority[k] = v
+
 
 
 def message_id():
@@ -41,6 +46,7 @@ def group_set_stream(group_id, stream_id):
 
 
 def stream_on_update(rpc_data):
+    global streams_priority
     try:
         id = message_id()
         message = f'{{"id":{id},"jsonrpc":"2.0","method":"Server.GetStatus"}}\r\n'
@@ -56,9 +62,16 @@ def stream_on_update(rpc_data):
                 if rpc_data['params']['stream']['status'] == 'playing':
                     playing_stream = rpc_data['params']['stream']['id']
                 else:
+                    stream_priority = 0
                     for stream in streams:
                         if stream['status'] == 'playing':
-                            playing_stream = stream['id']
+                            if stream['id'] in streams_priority.keys():
+                                priority = streams_priority[stream['id']]
+                            else:
+                                priority = 0
+                            if priority >= stream_priority:
+                                playing_stream = stream['id']
+                                stream_priority = priority
                 if playing_stream:
                     for group in groups:
                         group_id = group['id']
@@ -92,6 +105,7 @@ def rpc_handler(rpc_call):
 
 if __name__ == "__main__":
     initial_config()
+    None
     while True:
         try:
             with Telnet(host, port) as tn:
