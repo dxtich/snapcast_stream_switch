@@ -1,12 +1,25 @@
 #!/usr/bin/env python3
 import json
 import logging
+import configparser
 from telnetlib import Telnet
 from time import sleep, time
 
 log = logging.getLogger(__name__)
-HOST = '127.0.0.1'
-PORT = 1705
+host = '127.0.0.1'
+port = 1705
+
+
+def initial_config():
+    global host
+    global port
+    config = configparser.ConfigParser()
+    config.read('/etc/snapcontrol.conf')
+    if 'snapcast' in config:
+        if 'host' in config['snapcast']:
+            host = config['snapcast']['host']
+        if 'port' in config:
+            port = config['snapcast']['port']
 
 
 def message_id():
@@ -78,10 +91,11 @@ def rpc_handler(rpc_call):
 
 
 if __name__ == "__main__":
+    initial_config()
     while True:
         try:
-            with Telnet(HOST, PORT) as tn:
-                log.debug(f"connected to {HOST}:{PORT}")
+            with Telnet(host, port) as tn:
+                log.debug(f"connected to {host}:{port}")
                 while True:
                     rpc_call = tn.read_until(b'\n')
                     rpc_handler(rpc_call)
