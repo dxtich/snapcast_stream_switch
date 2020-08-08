@@ -8,7 +8,6 @@ If some of the streams changes its status to "idle", controller sets one of the 
 ## Install
 The controller must be installed on the device where Snapcast is installed.
 
-`git clone https://github.com/d-xtich/snapcast_stream_switch.git`
 ```shell script
 git clone https://github.com/d-xtich/snapcast_stream_switch.git
 cd snapcast_stream_switch
