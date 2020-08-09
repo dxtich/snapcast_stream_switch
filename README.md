@@ -33,10 +33,14 @@ Snapserver host and port configured in the `snapcast` section
 
 Streams priority configured in the `streams_priority` section, default priority is 0.
 
+The controller will not set stream from `disabled_streams` section when it becomes 'playing'. In spite of this section, streams still may be enabled if it 'playing' and other streams 'idle'.
+
+**NOTE:** All stream names in configuration file are _case insensitive_
+
 ## TODO
 
 - [X] Add configuration file with snapcast host/port
 - [X] Add priority to the streams
-- [ ] Add auto switch blacklist
+- [X] Add auto switch blacklist
 
 [1]: https://github.com/badaix/snapcast
