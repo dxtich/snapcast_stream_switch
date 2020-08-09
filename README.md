@@ -37,10 +37,5 @@ The controller will not set stream from `disabled_streams` section when it becom
 
 **NOTE:** All stream names in configuration file are _case insensitive_
 
-## TODO
-
-- [X] Add configuration file with snapcast host/port
-- [X] Add priority to the streams
-- [X] Add auto switch blacklist
 
 [1]: https://github.com/badaix/snapcast
