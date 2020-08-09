@@ -14,7 +14,7 @@ def initial_config():
     global host
     global port
     global streams_priority
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(allow_no_value=True)
     config.read('/etc/snapcontrol.conf')
     if 'snapcast' in config:
         if 'host' in config['snapcast']:
@@ -64,9 +64,10 @@ def stream_on_update(rpc_data):
                 else:
                     stream_priority = 0
                     for stream in streams:
+                        stream_id_lower = str(stream['id']).lower()
                         if stream['status'] == 'playing':
-                            if stream['id'] in streams_priority.keys():
-                                priority = streams_priority[stream['id']]
+                            if stream_id_lower in streams_priority:
+                                priority = int(streams_priority[stream_id_lower])
                             else:
                                 priority = 0
                             if priority >= stream_priority:
