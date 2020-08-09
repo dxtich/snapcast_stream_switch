@@ -9,11 +9,14 @@ log = logging.getLogger(__name__)
 host = '127.0.0.1'
 port = 1705
 streams_priority = dict()
+disabled_streams = list()
+
 
 def initial_config():
     global host
     global port
-    global streams_priority
+    # global streams_priority
+    # global disabled_streams
     config = configparser.ConfigParser(allow_no_value=True)
     config.read('/etc/snapcontrol.conf')
     if 'snapcast' in config:
@@ -24,7 +27,9 @@ def initial_config():
     if 'streams_priority' in config:
         for k, v in config['streams_priority'].items():
             streams_priority[k] = v
-
+    if 'disabled_streams' in config:
+        for item in config['disabled_streams']:
+            disabled_streams.append(item)
 
 
 def message_id():
@@ -46,7 +51,7 @@ def group_set_stream(group_id, stream_id):
 
 
 def stream_on_update(rpc_data):
-    global streams_priority
+    # global streams_priority
     try:
         id = message_id()
         message = f'{{"id":{id},"jsonrpc":"2.0","method":"Server.GetStatus"}}\r\n'
@@ -60,7 +65,8 @@ def stream_on_update(rpc_data):
                 streams = response_data['result']['server']['streams']
                 playing_stream = False
                 if rpc_data['params']['stream']['status'] == 'playing':
-                    playing_stream = rpc_data['params']['stream']['id']
+                    if str(rpc_data['params']['stream']['id']).lower() not in disabled_streams:
+                        playing_stream = rpc_data['params']['stream']['id']
                 else:
                     stream_priority = 0
                     for stream in streams:
