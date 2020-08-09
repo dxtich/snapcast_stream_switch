@@ -26,6 +26,13 @@ systemctl start snapcontrol.service
 systemctl stop snapcontrol.service
 ```
 
+## Configuration
+The controller configuration is done in `snapcontrol.conf`
+
+Snapserver host and port configured in the `snapcast` section
+
+Streams priority configured in the `streams_priority` section, default priority is 0.
+
 ## TODO
 
 - [X] Add configuration file with snapcast host/port
