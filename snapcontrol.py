@@ -15,8 +15,6 @@ disabled_streams = list()
 def initial_config():
     global host
     global port
-    # global streams_priority
-    # global disabled_streams
     config = configparser.ConfigParser(allow_no_value=True)
     config.read('/etc/snapcontrol.conf')
     if 'snapcast' in config:
@@ -51,7 +49,6 @@ def group_set_stream(group_id, stream_id):
 
 
 def stream_on_update(rpc_data):
-    # global streams_priority
     try:
         id = message_id()
         message = f'{{"id":{id},"jsonrpc":"2.0","method":"Server.GetStatus"}}\r\n'
@@ -112,7 +109,6 @@ def rpc_handler(rpc_call):
 
 if __name__ == "__main__":
     initial_config()
-    None
     while True:
         try:
             with Telnet(host, port) as tn:

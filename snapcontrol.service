@@ -1,6 +1,6 @@
 [Unit]
 Description=Snapcast stream auto switch
-Wants=snapcast.service
+Wants=snapserver.service
 
 [Service]
 ExecStart=python3 /usr/local/lib/snapcontrol.py
